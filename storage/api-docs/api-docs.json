@@ -1,0 +1,177 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Translation Management API",
+        "description": "API documentation for the translation management system",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api": {},
+        "/api/translations": {
+            "get": {
+                "summary": "Get all translations",
+                "operationId": "434a55804ca50c9845bd4781c222a539",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "tag",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of translations"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Create a new translation",
+                "operationId": "fe38d8cf02ff5c92d2cd8d5dfb095e5f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "locale": {
+                                        "type": "string",
+                                        "example": "en"
+                                    },
+                                    "key": {
+                                        "type": "string",
+                                        "example": "welcome_message"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Welcome to our site"
+                                    },
+                                    "tags": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "web",
+                                            "mobile"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Translation created"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/translations/{id}": {
+            "put": {
+                "summary": "Update an existing translation",
+                "operationId": "e314c7afaf04580ad65b747c8a1f7ce6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "locale": {
+                                        "type": "string",
+                                        "example": "fr"
+                                    },
+                                    "key": {
+                                        "type": "string",
+                                        "example": "greeting_message"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Bonjour"
+                                    },
+                                    "tags": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "web",
+                                            "mobile"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Translation updated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/translations/export": {
+            "get": {
+                "summary": "Export all translations as JSON",
+                "operationId": "52e76cf9a0dbfcb42b1d151b49f2b09b",
+                "responses": {
+                    "200": {
+                        "description": "Exported translations JSON"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    }
+}
