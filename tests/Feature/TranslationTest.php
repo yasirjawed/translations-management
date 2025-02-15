@@ -47,7 +47,12 @@ class TranslationTest extends TestCase
     public function it_can_update_a_translation()
     {
         $translation = Translation::factory()->create();
-        $data = ['content' => 'Updated Content'];
+        $data = [
+            'locale' => $translation->locale, // Required field
+            'key' => $translation->key, // Required field
+            'content' => 'Updated Content', // Required field
+            'tags' => ['web', 'mobile'] // Required field
+        ];
 
         $response = $this->putJson("/api/translations/{$translation->id}", $data, $this->headers);
         $response->assertStatus(200);
