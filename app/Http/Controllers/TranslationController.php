@@ -36,6 +36,9 @@ class TranslationController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+        // Force Laravel to always return JSON
+        $request->headers->set('Accept', 'application/json');
+
         $filters = $request->only(['locale', 'key', 'tag']);
         $translations = $this->translationService->getTranslations($filters);
         return response()->json($translations);
@@ -60,6 +63,9 @@ class TranslationController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        // Force Laravel to always return JSON
+        $request->headers->set('Accept', 'application/json');
+
         $validatedData = $request->validate([
             'locale' => 'required|string|max:5',
             'key' => 'required|string|unique:translations,key',
@@ -96,11 +102,14 @@ class TranslationController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
+        // Force Laravel to always return JSON
+        $request->headers->set('Accept', 'application/json');
+
         $validatedData = $request->validate([
-            'locale' => 'sometimes|string|max:5',
-            'key' => 'sometimes|string|unique:translations,key,' . $id,
-            'content' => 'sometimes|string',
-            'tags' => 'sometimes|array',
+            'locale' => 'required|string|max:5',
+            'key' => 'required|string|unique:translations,key,' . $id,
+            'content' => 'required|string',
+            'tags' => 'required|array',
         ]);
 
         $updated = $this->translationService->updateTranslation($id, $validatedData);
